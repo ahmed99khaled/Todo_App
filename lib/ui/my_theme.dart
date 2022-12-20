@@ -13,6 +13,8 @@ class MyTheme {
 
   static final ThemeData lightTheme = ThemeData(
     primaryColor: lightPrimry,
+    accentColor: Colors.white,
+    primaryColorLight: Colors.black,
     scaffoldBackgroundColor: lightScaffoldBackground,
     appBarTheme: AppBarTheme(
       color: lightPrimry,
@@ -25,6 +27,7 @@ class MyTheme {
       unselectedIconTheme: IconThemeData(size: 36, color: greyColor),
     ),
     bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
         topLeft: Radius.circular(18),
@@ -32,10 +35,56 @@ class MyTheme {
       )),
     ),
     textTheme: TextTheme(
+      headline3: TextStyle(
+          fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+      headline4: TextStyle(
+          fontSize: 23, fontWeight: FontWeight.bold, color: blackColor),
       headline5: TextStyle(
-          fontSize: 18, fontWeight: FontWeight.bold, color: blackColor),
-      headline6: TextStyle(
           fontSize: 20, fontWeight: FontWeight.bold, color: blackColor),
+      headline6: TextStyle(
+          fontSize: 21, fontWeight: FontWeight.bold, color: blackColor),
+    ),
+  );
+  static final ThemeData darkTheme = ThemeData(
+    primaryColor: blackColor,
+    accentColor: blackColor,
+    primaryColorLight: Colors.white,
+    scaffoldBackgroundColor: darkScaffoldBackground,
+    appBarTheme: AppBarTheme(
+      color: lightPrimry,
+      elevation: 0,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      selectedIconTheme: IconThemeData(size: 36, color: lightPrimry),
+      unselectedIconTheme: IconThemeData(size: 36, color: greyColor),
+    ),
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: blackColor,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(18),
+        topRight: Radius.circular(18),
+      )),
+    ),
+    textTheme: TextTheme(
+      headline3: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          color: darkScaffoldBackground),
+      headline4: TextStyle(
+          fontSize: 23,
+          fontWeight: FontWeight.bold,
+          color: lightScaffoldBackground),
+      headline5: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: lightScaffoldBackground),
+      headline6: TextStyle(
+          fontSize: 21,
+          fontWeight: FontWeight.bold,
+          color: lightScaffoldBackground),
     ),
   );
 }

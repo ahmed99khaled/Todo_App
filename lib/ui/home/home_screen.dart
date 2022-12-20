@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo/ui/home/add_task_widget.dart';
+import 'package:todo/ui/home/add_task_sheet_widget.dart';
 import 'package:todo/ui/home/settings/settings_tab.dart';
 import 'package:todo/ui/home/tasks_list/tasks_tab.dart';
+import 'package:todo/ui/my_theme.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'home screen';
@@ -18,17 +19,26 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Todo App'),
+          title: Text(
+            'Todo App',
+            style: Theme.of(context).textTheme.headline3,
+          ),
         ),
         floatingActionButton: FloatingActionButton(
-          shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 4)),
+          backgroundColor: MyTheme.lightPrimry,
+          shape: StadiumBorder(
+              side: BorderSide(color: Theme.of(context).accentColor, width: 4)),
           onPressed: () {
             showAddTaskBottomSheet();
           },
-          child: Icon(Icons.add),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
+          color: Theme.of(context).accentColor,
           shape: CircularNotchedRectangle(),
           notchMargin: 8,
           child: BottomNavigationBar(
@@ -55,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
     showModalBottomSheet(
         context: context,
         builder: (buildContext) {
-          return AddTask();
+          return AddTaskSheet();
         });
   }
 }
