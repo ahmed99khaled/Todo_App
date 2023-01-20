@@ -1,0 +1,19 @@
+{
+   "title": "Title",
+   "description": "description",
+   "select_date":"Select Date",
+   "add_new_task":"Add New Task",
+   "theme":"Theme",
+   "language":"Language",
+   "settings":"Settings",
+   "light":"Light",
+   "dark":"Dark",
+   "english":"English",
+   "arabic":"Arabic",
+   "edit_task":"Edit Task",
+   "save_changes":"Save Changes",
+   "done":"Done!",
+   "submit":"submit"
+
+
+}

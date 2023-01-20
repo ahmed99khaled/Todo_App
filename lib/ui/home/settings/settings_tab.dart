@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/ui/home/settings/language_bottom_sheet.dart';
 import 'package:todo/ui/home/settings/theme_bottom_sheet.dart';
 import 'package:todo/ui/my_theme.dart';
+
+import '../../../providers/settings_provider.dart';
 
 class SettingsTab extends StatefulWidget {
   @override
@@ -10,13 +15,14 @@ class SettingsTab extends StatefulWidget {
 class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<SettingsProvider>(context);
     return Container(
       margin: EdgeInsets.all(40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Theme',
+            AppLocalizations.of(context)!.theme,
             style:
                 Theme.of(context).textTheme.headline5?.copyWith(fontSize: 18),
           ),
@@ -35,7 +41,9 @@ class _SettingsTabState extends State<SettingsTab> {
                     width: 1.6, color: Theme.of(context).primaryColor),
               ),
               child: Text(
-                'Light',
+                provider.currentTheme == ThemeMode.light
+                    ? AppLocalizations.of(context)!.light
+                    : AppLocalizations.of(context)!.dark,
                 style: Theme.of(context)
                     .textTheme
                     .headline5
@@ -47,7 +55,7 @@ class _SettingsTabState extends State<SettingsTab> {
             height: 35,
           ),
           Text(
-            'Language',
+            AppLocalizations.of(context)!.language,
             style:
                 Theme.of(context).textTheme.headline5?.copyWith(fontSize: 18),
           ),
@@ -66,7 +74,9 @@ class _SettingsTabState extends State<SettingsTab> {
                     width: 1.6, color: Theme.of(context).primaryColor),
               ),
               child: Text(
-                'English',
+                provider.language == 'en'
+                    ? AppLocalizations.of(context)!.english
+                    : AppLocalizations.of(context)!.arabic,
                 style: Theme.of(context)
                     .textTheme
                     .headline5
@@ -87,5 +97,11 @@ class _SettingsTabState extends State<SettingsTab> {
         });
   }
 
-  void showLanguageBottomSheet() {}
+  void showLanguageBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (buildContext) {
+          return LanguageBottomSheet();
+        });
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo/database/my_database.dart';
 import 'package:todo/ui/home/edit_task_screen.dart';
@@ -9,7 +10,6 @@ import '../../../database/task.dart';
 
 class TaskItem extends StatefulWidget {
   Task task;
-
   TaskItem({required this.task});
 
   @override
@@ -46,10 +46,8 @@ class _TaskItemState extends State<TaskItem> {
         ),
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(
-              context,
-              EditTaskScreen.routeName,
-            );
+            Navigator.pushNamed(context, EditTaskScreen.routeName,
+                arguments: widget.task);
           },
           child: Container(
             padding: EdgeInsets.all(14),
@@ -65,7 +63,7 @@ class _TaskItemState extends State<TaskItem> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(18),
                       color: widget.task.isDone == false
-                          ? Theme.of(context).primaryColor
+                          ? MyTheme.lightPrimry
                           : MyTheme.greenColor),
                 ),
                 SizedBox(
@@ -77,8 +75,10 @@ class _TaskItemState extends State<TaskItem> {
                     children: [
                       Text(widget.task.title,
                           style: widget.task.isDone == false
-                              ? Theme.of(context).textTheme.headline5?.copyWith(
-                                  color: Theme.of(context).primaryColor)
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .headline5
+                                  ?.copyWith(color: MyTheme.lightPrimry)
                               : Theme.of(context)
                                   .textTheme
                                   .headline5
@@ -91,26 +91,27 @@ class _TaskItemState extends State<TaskItem> {
                     ],
                   ),
                 ),
-                widget.task.isDone == true
-                    ? Text(
-                        'Done!',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6
-                            ?.copyWith(color: MyTheme.greenColor, fontSize: 23),
-                      )
-                    : InkWell(
-                        onTap: () {
-                          doneTask();
-                          setState(() {});
-                        },
-                        child: Container(
+                InkWell(
+                  onTap: () {
+                    doneTask();
+                    setState(() {});
+                  },
+                  child: widget.task.isDone
+                      ? Text(
+                          AppLocalizations.of(context)!.done,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(
+                                  color: MyTheme.greenColor, fontSize: 23),
+                        )
+                      : Container(
                           padding:
                               EdgeInsets.symmetric(vertical: 8, horizontal: 18),
                           margin: EdgeInsets.symmetric(horizontal: 8),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
-                            color: Theme.of(context).primaryColor,
+                            color: MyTheme.lightPrimry,
                           ),
                           child: Icon(
                             Icons.check,
@@ -118,7 +119,7 @@ class _TaskItemState extends State<TaskItem> {
                             size: 34,
                           ),
                         ),
-                      )
+                ),
               ],
             ),
           ),

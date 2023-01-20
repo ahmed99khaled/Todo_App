@@ -13,6 +13,7 @@ class TasksTab extends StatefulWidget {
 
 class _TasksTabState extends State<TasksTab> {
   List<Task> allTasks = [];
+  var selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,14 @@ class _TasksTabState extends State<TasksTab> {
       child: Column(
         children: [
           CalendarTimeline(
-            initialDate: DateTime.now(),
+            initialDate: selectedDate,
             firstDate: DateTime.now().subtract(Duration(days: 365)),
             lastDate: DateTime.now().add(Duration(days: 365)),
-            onDateSelected: (date) => print(date),
+            onDateSelected: (date) {
+              setState(() {
+                selectedDate = date;
+              });
+            },
             leftMargin: 20,
             monthColor: Theme.of(context).primaryColorLight,
             dayColor: Theme.of(context).primaryColorLight,
@@ -41,7 +46,7 @@ class _TasksTabState extends State<TasksTab> {
               child:
                   //allTasks.isEmpty? Center(child: CircularProgressIndicator()):
                   StreamBuilder(
-            stream: MyDatabase.getTaskRealTimeUpdates(),
+                    stream: MyDatabase.getTaskRealTimeUpdates(selectedDate),
             builder: (buildContext, snapShot) {
               if (snapShot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -82,7 +87,7 @@ class _TasksTabState extends State<TasksTab> {
 
   // Function doesn't use
   void loadTasks() async {
-    allTasks = await MyDatabase.getTasks();
+    allTasks = await MyDatabase.getTasks(selectedDate);
     setState(() {});
   }
 }

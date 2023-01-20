@@ -5,12 +5,12 @@ import 'package:todo/ui/my_theme.dart';
 
 import '../../../providers/settings_provider.dart';
 
-class ThemeBottomSheet extends StatefulWidget {
+class LanguageBottomSheet extends StatefulWidget {
   @override
-  State<ThemeBottomSheet> createState() => _ThemeBottomSheetState();
+  State<LanguageBottomSheet> createState() => _LanguageBottomSheetState();
 }
 
-class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
+class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<SettingsProvider>(context);
@@ -21,21 +21,21 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
         children: [
           InkWell(
               onTap: () {
-                provider.changeTHeme(ThemeMode.light);
+                provider.changeLanguage('en');
               },
-              child: provider.currentTheme == ThemeMode.light
-                  ? getSelectedItem(AppLocalizations.of(context)!.light)
-                  : getUnSelectedItem(AppLocalizations.of(context)!.light)),
+              child: provider.language == 'en'
+                  ? getSelectedItem(AppLocalizations.of(context)!.english)
+                  : getUnSelectedItem(AppLocalizations.of(context)!.english)),
           SizedBox(
             height: 18,
           ),
           InkWell(
               onTap: () {
-                provider.changeTHeme(ThemeMode.dark);
+                provider.changeLanguage('ar');
               },
-              child: provider.currentTheme == ThemeMode.light
-                  ? getUnSelectedItem(AppLocalizations.of(context)!.dark)
-                  : getSelectedItem(AppLocalizations.of(context)!.dark)),
+              child: provider.language == 'en'
+                  ? getUnSelectedItem(AppLocalizations.of(context)!.arabic)
+                  : getSelectedItem(AppLocalizations.of(context)!.arabic)),
         ],
       ),
     );

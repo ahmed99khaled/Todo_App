@@ -1,0 +1,17 @@
+{
+    "title": "العنوان",
+    "description": "الوصف",
+    "select_date":"حدد تاريخ",
+    "add_new_task":"اضافة مهمة جديدة",
+     "theme":"المظهر",
+     "language":"اللغة",
+     "settings":"الاعدادات",
+    "light":"فاتح",
+    "dark":"داكن",
+    "english":"الانجليزية",
+    "arabic":"العربية",
+    "edit_task":"تعديل المهمة",
+    "save_changes":"حفظ التغيرات",
+    "done":"تم!",
+    "submit":"تسجيل"
+}

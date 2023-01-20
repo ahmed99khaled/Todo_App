@@ -1,4 +1,12 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo/database/my_database.dart';
+import 'package:todo/ui/my_theme.dart';
+import 'package:todo/utils_package/date_utils.dart';
+
+import '../../database/task.dart';
 
 class EditTaskScreen extends StatefulWidget {
   static const String routeName = 'Edit Task Screen';
@@ -11,9 +19,13 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
   var titleController = TextEditingController();
   var descriptionController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  Task? task;
 
   @override
   Widget build(BuildContext context) {
+    task = ModalRoute.of(context)?.settings.arguments as Task;
+    titleController = TextEditingController(text: task!.title);
+    descriptionController = TextEditingController(text: task!.description);
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -35,11 +47,10 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
           ),
           child: Form(
             key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: ListView(
               children: [
                 Text(
-                  'Edit Task',
+                  AppLocalizations.of(context)!.edit_task,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline4,
                 ),
@@ -48,6 +59,13 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                 ),
                 TextFormField(
                   controller: titleController,
+                  style: TextStyle(
+                      color: MyTheme.lightPrimry,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
+                  onChanged: (value) {
+                    task!.title = value;
+                  },
                   validator: (input) {
                     if (input == null || input.trim().isEmpty) {
                       return 'Please Enter a vailed Title';
@@ -55,8 +73,11 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                   },
                   decoration: InputDecoration(
                     label: Text(
-                      'This is Title',
-                      style: Theme.of(context).textTheme.headline5,
+                      AppLocalizations.of(context)!.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5
+                          ?.copyWith(fontSize: 16),
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
@@ -68,6 +89,13 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                 ),
                 TextFormField(
                   controller: descriptionController,
+                  style: TextStyle(
+                      color: MyTheme.lightPrimry,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
+                  onChanged: (value) {
+                    task!.description = value;
+                  },
                   validator: (input) {
                     if (input == null || input.trim().isEmpty) {
                       return 'Please Enter a vailed description';
@@ -77,8 +105,11 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                   minLines: 4,
                   decoration: InputDecoration(
                     label: Text(
-                      'This is description',
-                      style: Theme.of(context).textTheme.headline5,
+                      AppLocalizations.of(context)!.description,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5
+                          ?.copyWith(fontSize: 16),
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
@@ -89,7 +120,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                   height: 35,
                 ),
                 Text(
-                  'Select Date',
+                  AppLocalizations.of(context)!.select_date,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 SizedBox(
@@ -100,12 +131,13 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                     showEditTaskDatePicker();
                   },
                   child: Text(
-                    '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                    //'${task!.dateTime.day}/ ${task!.dateTime.month}/ ${task!.dateTime.year}',
+                    MyDateUtils.formatTaskDate(task!.dateTime),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
                         .headline5
-                        ?.copyWith(color: Theme.of(context).primaryColor),
+                        ?.copyWith(color: MyTheme.lightPrimry),
                   ),
                 ),
                 SizedBox(
@@ -114,7 +146,9 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                 Container(
                   padding: EdgeInsets.all(8),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      editTask();
+                    },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -122,7 +156,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(14.0),
                       child: Text(
-                        'Save Changes',
+                        AppLocalizations.of(context)!.save_changes,
                         style: Theme.of(context).textTheme.headline6?.copyWith(
                               color: Colors.white,
                             ),
@@ -138,18 +172,23 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
     );
   }
 
+  void editTask() {
+    MyDatabase.updateTask(task!);
+    Navigator.pop(context);
+  }
+
   var selectedDate = DateTime.now();
 
-  Future<void> showEditTaskDatePicker() async {
+  showEditTaskDatePicker() async {
     var userSelectedDate = await showDatePicker(
         context: context,
-        initialDate: selectedDate,
+        initialDate: task!.dateTime,
         firstDate: DateTime.now(),
         lastDate: DateTime.now().add(Duration(days: 365)));
     if (userSelectedDate == null) {
       return;
     }
-    selectedDate = userSelectedDate;
+    task!.dateTime = userSelectedDate;
     setState(() {});
   }
 }

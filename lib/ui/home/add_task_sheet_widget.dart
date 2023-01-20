@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:todo/database/my_database.dart';
 import 'package:todo/database/task.dart';
+import 'package:todo/ui/my_theme.dart';
 import 'package:todo/utils_package/date_utils.dart';
 import 'package:todo/utils_package/dialog_utils.dart';
 
@@ -19,30 +21,32 @@ class _AddTaskState extends State<AddTaskSheet> {
     return Form(
       key: formKey,
       child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        padding: EdgeInsets.all(20),
+        child: ListView(
           children: [
             Text(
-              'Add New Task',
+              AppLocalizations.of(context)!.add_new_task,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline4,
+              style:
+                  Theme.of(context).textTheme.headline4?.copyWith(fontSize: 26),
             ),
             SizedBox(
               height: 10,
             ),
             TextFormField(
               controller: titleController,
+              style: TextStyle(
+                  color: MyTheme.lightPrimry,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500),
               validator: (input) {
                 if (input == null || input.trim().isEmpty) {
                   return 'Please Enter a vailed Title';
                 }
               },
               decoration: InputDecoration(
-                label: Text(
-                  'Title',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
+                label: Text(AppLocalizations.of(context)!.title,
+                    style: Theme.of(context).textTheme.headline5),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey),
                 ),
@@ -53,6 +57,10 @@ class _AddTaskState extends State<AddTaskSheet> {
             ),
             TextFormField(
               controller: descriptionController,
+              style: TextStyle(
+                  color: MyTheme.lightPrimry,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500),
               validator: (input) {
                 if (input == null || input.trim().isEmpty) {
                   return 'Please Enter a vailed description';
@@ -62,7 +70,7 @@ class _AddTaskState extends State<AddTaskSheet> {
               minLines: 4,
               decoration: InputDecoration(
                   label: Text(
-                    'description',
+                    AppLocalizations.of(context)!.description,
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   enabledBorder: UnderlineInputBorder(
@@ -73,7 +81,7 @@ class _AddTaskState extends State<AddTaskSheet> {
               height: 12,
             ),
             Text(
-              'Select Date',
+              AppLocalizations.of(context)!.select_date,
               style: Theme.of(context).textTheme.headline6,
             ),
             SizedBox(
@@ -90,13 +98,21 @@ class _AddTaskState extends State<AddTaskSheet> {
                     style: Theme.of(context).textTheme.headline5),
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  insertTask();
-                },
-                child: Text(
-                  'submit',
-                ))
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: 44,
+              child: ElevatedButton(
+                  onPressed: () {
+                    insertTask();
+                  },
+                  child: Text('submit',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.copyWith(color: Colors.white))),
+            )
           ],
         ),
       ),

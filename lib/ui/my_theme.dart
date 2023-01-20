@@ -34,28 +34,28 @@ class MyTheme {
         topRight: Radius.circular(18),
       )),
     ),
-    textTheme: TextTheme(
-      headline3: TextStyle(
-          fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
-      headline4: TextStyle(
-          fontSize: 23, fontWeight: FontWeight.bold, color: blackColor),
-      headline5: TextStyle(
-          fontSize: 20, fontWeight: FontWeight.bold, color: blackColor),
-      headline6: TextStyle(
-          fontSize: 21, fontWeight: FontWeight.bold, color: blackColor),
-    ),
-  );
+      textTheme: TextTheme(
+        headline3: TextStyle(
+            fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+        headline4: TextStyle(
+            fontSize: 23, fontWeight: FontWeight.bold, color: blackColor),
+        headline5: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: blackColor),
+        headline6: TextStyle(
+            fontSize: 21, fontWeight: FontWeight.bold, color: blackColor),
+      ),
+      primaryColorBrightness: Brightness.dark);
   static final ThemeData darkTheme = ThemeData(
-    primaryColor: blackColor,
-    accentColor: blackColor,
-    primaryColorLight: Colors.white,
-    scaffoldBackgroundColor: darkScaffoldBackground,
-    appBarTheme: AppBarTheme(
-      color: lightPrimry,
-      elevation: 0,
-    ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      elevation: 0,
+      primaryColor: blackColor,
+      accentColor: blackColor,
+      primaryColorLight: Colors.white,
+      scaffoldBackgroundColor: darkScaffoldBackground,
+      appBarTheme: AppBarTheme(
+        color: lightPrimry,
+        elevation: 0,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        elevation: 0,
       backgroundColor: Colors.transparent,
       selectedIconTheme: IconThemeData(size: 36, color: lightPrimry),
       unselectedIconTheme: IconThemeData(size: 36, color: greyColor),
@@ -76,15 +76,15 @@ class MyTheme {
       headline4: TextStyle(
           fontSize: 23,
           fontWeight: FontWeight.bold,
-          color: lightScaffoldBackground),
-      headline5: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: lightScaffoldBackground),
-      headline6: TextStyle(
-          fontSize: 21,
-          fontWeight: FontWeight.bold,
-          color: lightScaffoldBackground),
-    ),
-  );
+            color: lightScaffoldBackground),
+        headline5: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: lightScaffoldBackground),
+        headline6: TextStyle(
+            fontSize: 21,
+            fontWeight: FontWeight.bold,
+            color: lightScaffoldBackground),
+      ),
+      primaryColorBrightness: Brightness.light);
 }
